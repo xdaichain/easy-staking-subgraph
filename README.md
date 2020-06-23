@@ -1,1 +1,1 @@
-# easy-staking-subgraph
+Easy Staking subgraph

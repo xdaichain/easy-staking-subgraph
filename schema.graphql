@@ -1,0 +1,7 @@
+type Deposit @entity {
+  id: ID!
+  user: Bytes!
+  depositId: BigInt!
+  amount: BigInt!
+  timestamp: BigInt!
+}

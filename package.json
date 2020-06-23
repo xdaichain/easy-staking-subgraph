@@ -1,0 +1,16 @@
+{
+  "name": "easy-staking",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maxaleks/easy-staking-test",
+    "create-local": "graph create --node http://localhost:8020/ maxaleks/easy-staking-test",
+    "remove-local": "graph remove --node http://localhost:8020/ maxaleks/easy-staking-test",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maxaleks/easy-staking-test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.17.1",
+    "@graphprotocol/graph-ts": "0.17.0"
+  }
+}
