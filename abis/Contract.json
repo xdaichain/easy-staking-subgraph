@@ -179,12 +179,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "_depositId",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_depositId",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
@@ -272,9 +272,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
+        "internalType": "int256",
         "name": "b",
-        "type": "uint256"
+        "type": "int256"
       },
       {
         "internalType": "uint256",
@@ -299,6 +299,21 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -340,29 +355,14 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
+        "internalType": "int256",
         "name": "_sigmoidParamB",
-        "type": "uint256"
+        "type": "int256"
       },
       {
         "internalType": "uint256",
         "name": "_sigmoidParamC",
         "type": "uint256"
-      }
-    ],
-    "name": "initialize",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
       }
     ],
     "name": "initialize",
@@ -427,12 +427,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "_depositId",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_depositId",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
@@ -447,12 +447,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "_depositId",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_depositId",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
@@ -565,9 +565,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
+        "internalType": "int256",
         "name": "_b",
-        "type": "uint256"
+        "type": "int256"
       },
       {
         "internalType": "uint256",
@@ -635,6 +635,21 @@
         "internalType": "contract IERC20Mintable",
         "name": "",
         "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalStaked",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,

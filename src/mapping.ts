@@ -27,8 +27,6 @@ export function handleWithdrawn(event: Withdrawn): void {
   deposit.amount = event.params.balance;
   if (deposit.amount.isZero()) {
     deposit.timestamp = BigInt.fromI32(0);
-  } else {
-    deposit.timestamp = event.block.timestamp;
   }
   deposit.save();
 }
