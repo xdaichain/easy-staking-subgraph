@@ -4,4 +4,5 @@ type Deposit @entity {
   depositId: BigInt!
   amount: BigInt!
   timestamp: BigInt!
+  withdrawalRequestTimestamp: BigInt!
 }
