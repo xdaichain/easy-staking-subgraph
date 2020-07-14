@@ -6,7 +6,7 @@ dataSources:
     name: Contract
     network: kovan
     source:
-      address: "0xfE3758682a23EF4EabD45e6f77Eb998AB7448BB5"
+      address: "0x5232E38a018E966EF75A8C232D37789AD2e461F8"
       abi: Contract
       startBlock: 18994200
     mapping:
@@ -20,8 +20,8 @@ dataSources:
         - name: Contract
           file: ./abis/Contract.json
       eventHandlers:
-        - event: Deposited(indexed address,indexed uint256,uint256,uint256,uint256)
+        - event: Deposited(indexed address,indexed uint256,uint256,uint256,uint256,uint256)
           handler: handleDeposited
-        - event: Withdrawn(indexed address,indexed uint256,uint256,uint256,uint256,uint256)
+        - event: Withdrawn(indexed address,indexed uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleWithdrawn
       file: ./src/mapping.ts

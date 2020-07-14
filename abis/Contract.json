@@ -29,11 +29,43 @@
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "accruedEmission",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "prevDepositDuration",
         "type": "uint256"
       }
     ],
     "name": "Deposited",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "FeeSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "value",
+        "type": "address"
+      }
+    ],
+    "name": "LiquidityProvidersRewardAddressSet",
     "type": "event"
   },
   {
@@ -53,6 +85,89 @@
       }
     ],
     "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "a",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "b",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "c",
+        "type": "uint256"
+      }
+    ],
+    "name": "SigmoidParametersSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "TotalSupplyFactorSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawalLockDurationSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawalRequested",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawalUnlockDurationSet",
     "type": "event"
   },
   {
@@ -86,6 +201,12 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "balance",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "accruedEmission",
         "type": "uint256"
       },
       {
@@ -239,21 +360,31 @@
     "constant": true,
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_depositDate",
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_depositId",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
-    "name": "getCurrentAccruedEmission",
+    "name": "getAccruedEmission",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "userShare",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "timePassed",
         "type": "uint256"
       }
     ],
@@ -289,7 +420,7 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "getTotalStakedAmount",
+    "name": "getSupplyBasedEmissionRate",
     "outputs": [
       {
         "internalType": "uint256",
@@ -331,7 +462,7 @@
       },
       {
         "internalType": "address",
-        "name": "_liquidityProvidersRewardContract",
+        "name": "_liquidityProvidersRewardAddress",
         "type": "address"
       },
       {
@@ -347,6 +478,11 @@
       {
         "internalType": "uint256",
         "name": "_withdrawalUnlockDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalSupplyFactor",
         "type": "uint256"
       },
       {
@@ -410,7 +546,7 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "liquidityProvidersRewardContract",
+    "name": "liquidityProvidersRewardAddress",
     "outputs": [
       {
         "internalType": "address",
@@ -531,7 +667,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_fee",
+        "name": "_value",
         "type": "uint256"
       }
     ],
@@ -546,11 +682,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_contractAddress",
+        "name": "_address",
         "type": "address"
       }
     ],
-    "name": "setLiquidityProvidersRewardContract",
+    "name": "setLiquidityProvidersRewardAddress",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -585,12 +721,12 @@
     "constant": false,
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_tokenAddress",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
       }
     ],
-    "name": "setToken",
+    "name": "setTotalSupplyFactor",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -601,7 +737,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_withdrawalLockDuration",
+        "name": "_value",
         "type": "uint256"
       }
     ],
@@ -616,7 +752,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_withdrawalUnlockDuration",
+        "name": "_value",
         "type": "uint256"
       }
     ],
@@ -645,6 +781,21 @@
     "constant": true,
     "inputs": [],
     "name": "totalStaked",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalSupplyFactor",
     "outputs": [
       {
         "internalType": "uint256",
