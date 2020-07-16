@@ -6,3 +6,15 @@ type Deposit @entity {
   timestamp: BigInt!
   withdrawalRequestTimestamp: BigInt!
 }
+
+type CommonData @entity {
+  id: ID!
+  sigmoidParamA: BigInt!
+  sigmoidParamB: BigInt!
+  sigmoidParamC: BigInt!
+  fee: BigInt!
+  withdrawalLockDuration: BigInt!
+  withdrawalUnlockDuration: BigInt!
+  totalSupplyFactor: BigInt!
+  totalStaked: BigInt!
+}
