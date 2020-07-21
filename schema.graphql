@@ -7,6 +7,21 @@ type Deposit @entity {
   withdrawalRequestTimestamp: BigInt!
 }
 
+type Action @entity {
+  id: ID!
+  user: Bytes!
+  depositId: BigInt!
+  type: ActionType!
+  amount: BigInt!
+  timestamp: BigInt!
+}
+
+enum ActionType {
+  Deposit,
+  Withdrawal,
+  WithdrawalRequest
+}
+
 type CommonData @entity {
   id: ID!
   sigmoidParamA: BigInt!

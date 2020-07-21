@@ -10,7 +10,17 @@ import {
   TotalSupplyFactorSet,
   SigmoidParametersSet,
 } from '../generated/Contract/Contract';
-import { Deposit, CommonData } from '../generated/schema';
+import { Deposit, CommonData, Action } from '../generated/schema';
+
+function createAction(id: string, user: Bytes, depositId: BigInt, amount: BigInt, tipestamp: BigInt, type: string): void {
+  let action = new Action(id);
+  action.user = user;
+  action.depositId = depositId;
+  action.amount = amount;
+  action.timestamp = tipestamp;
+  action.type = type;
+  action.save();
+}
 
 export function handleDeposited(event: Deposited): void {
   let id = event.params.sender.toHex() + '-' + event.params.id.toHex();
@@ -27,6 +37,14 @@ export function handleDeposited(event: Deposited): void {
   deposit.timestamp = event.block.timestamp;
   deposit.save();
   updateTotalDeposited(event.address);
+  createAction(
+    event.transaction.hash.toHex(),
+    event.params.sender,
+    event.params.id,
+    event.params.amount,
+    event.block.timestamp,
+    'Deposit'
+  );
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
@@ -40,6 +58,14 @@ export function handleWithdrawn(event: Withdrawn): void {
   deposit.withdrawalRequestTimestamp = contract.withdrawalRequestsDates(event.params.sender, event.params.id);
   deposit.save();
   updateTotalDeposited(event.address);
+  createAction(
+    event.transaction.hash.toHex(),
+    event.params.sender,
+    event.params.id,
+    event.params.amount,
+    event.block.timestamp,
+    'Withdrawal'
+  );
 }
 
 export function handleWithdrawalRequested(event: WithdrawalRequested): void {
@@ -47,6 +73,14 @@ export function handleWithdrawalRequested(event: WithdrawalRequested): void {
   let deposit = Deposit.load(id);
   deposit.withdrawalRequestTimestamp = event.block.timestamp;
   deposit.save();
+  createAction(
+    event.transaction.hash.toHex(),
+    event.params.sender,
+    event.params.id,
+    BigInt.fromI32(0),
+    event.block.timestamp,
+    'WithdrawalRequest'
+  );
 }
 
 function getCommonDataEntity(): CommonData | null {
