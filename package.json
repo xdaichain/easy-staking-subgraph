@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maxaleks/easy-staking-test",
-    "create-local": "graph create --node http://localhost:8020/ maxaleks/easy-staking-test",
-    "remove-local": "graph remove --node http://localhost:8020/ maxaleks/easy-staking-test",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maxaleks/easy-staking-test"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maxaleks/easy-staking",
+    "create-local": "graph create --node http://localhost:8020/ maxaleks/easy-staking",
+    "remove-local": "graph remove --node http://localhost:8020/ maxaleks/easy-staking",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maxaleks/easy-staking"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",

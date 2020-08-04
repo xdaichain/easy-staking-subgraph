@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Contract
-    network: kovan
+    network: mainnet
     source:
-      address: "0xb9313ae82b066d60B61232678D7c656f471f6BEe"
+      address: "0xecbCd6D7264e3c9eAc24C7130Ed3cd2B38F5A7AD"
       abi: Contract
-      startBlock: 19620000
+      startBlock: 10590000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
