@@ -10,7 +10,7 @@ import {
   TotalSupplyFactorSet,
   SigmoidParametersSet,
 } from '../generated/Contract/Contract';
-import { Deposit, CommonData, Action } from '../generated/schema';
+import { Deposit, CommonData, Action, User } from '../generated/schema';
 
 function createAction(id: string, user: Bytes, depositId: BigInt, amount: BigInt, tipestamp: BigInt, type: string): void {
   let action = new Action(id);
@@ -20,6 +20,18 @@ function createAction(id: string, user: Bytes, depositId: BigInt, amount: BigInt
   action.timestamp = tipestamp;
   action.type = type;
   action.save();
+}
+
+function updateTotalDepositedByUser(address: Bytes, oldDepositValue: BigInt, newDepositValue: BigInt): void {
+  let id = address.toHexString();
+  let user = User.load(id);
+  if (user == null) {
+    user = new User(id);
+    user.address = address;
+    user.totalDeposit = BigInt.fromI32(0);
+  }
+  user.totalDeposit = user.totalDeposit.minus(oldDepositValue).plus(newDepositValue);
+  user.save();
 }
 
 export function handleDeposited(event: Deposited): void {
@@ -33,6 +45,7 @@ export function handleDeposited(event: Deposited): void {
     deposit.timestamp = BigInt.fromI32(0);
     deposit.withdrawalRequestTimestamp = BigInt.fromI32(0);
   }
+  updateTotalDepositedByUser(event.params.sender, deposit.amount, event.params.balance);
   deposit.amount = event.params.balance;
   deposit.timestamp = event.block.timestamp;
   deposit.save();
@@ -50,6 +63,7 @@ export function handleDeposited(event: Deposited): void {
 export function handleWithdrawn(event: Withdrawn): void {
   let id = event.params.sender.toHex() + '-' + event.params.id.toHex();
   let deposit = Deposit.load(id);
+  updateTotalDepositedByUser(event.params.sender, deposit.amount, event.params.balance);
   deposit.amount = event.params.balance;
   if (deposit.amount.isZero()) {
     deposit.timestamp = BigInt.fromI32(0);

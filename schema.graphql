@@ -1,3 +1,9 @@
+type User @entity {
+  id: ID!
+  address: Bytes!
+  totalDeposit: BigInt!
+}
+
 type Deposit @entity {
   id: ID!
   user: Bytes!
